@@ -578,7 +578,8 @@ class Datum(RqlQuery):
 
             return obj
         elif d_type == p.Datum.R_ARRAY:
-            return [Datum.deconstruct(e, time_format) for e in datum.r_array]
+            array = datum.r_array
+            return [Datum.deconstruct(e, time_format) for e in array]
         elif d_type == p.Datum.R_STR:
             return datum.r_str
         elif d_type == p.Datum.R_NUM:

@@ -54,6 +54,8 @@ class Cursor(object):
             self.conn._async_continue_cursor(self)
 
     def __iter__(self):
+        time_format = self.time_format
+        deconstruct = Datum.deconstruct
         while True:
             if len(self.responses) == 0 and not self.end_flag:
                 self.conn._continue_cursor(self)
@@ -64,7 +66,7 @@ class Cursor(object):
                 break
 
             for datum in self.responses[0].response:
-                yield Datum.deconstruct(datum, self.time_format)
+                yield deconstruct(datum, time_format)
             del self.responses[0]
 
     def close(self):
